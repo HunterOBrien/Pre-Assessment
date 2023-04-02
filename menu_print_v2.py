@@ -38,6 +38,7 @@ def welcome():
         time.sleep(0.75)
         welcome()
 
+    # Calls the combo_print function
     elif menu_choices == "View Menu":
         time.sleep(0.75)
         combo_print()
@@ -50,3 +51,5 @@ def combo_print():
         for key in combo_info:
             print(f"{key}: {combo_info[key]}")
 
+
+welcome()
