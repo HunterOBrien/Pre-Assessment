@@ -91,19 +91,17 @@ def add_combo():
 
 
 def delete_combo():
-    combo_list = []
-    for i in combos:
-        combo_list.append(i)
-    option = easygui.multchoicebox("What combo(s) do you want to delete?", "Combo Deleter",
-                                   choices=combo_list + ["Back to main menu"], preselect=[])
-    if option is None:
-        return
-    if "Back to main menu" in option:
+    combo_list = list(combos.keys())
+    option = easygui.multchoicebox("What combo do you want to delete?", "Combo Deleter",
+                                   choices=["Back to main menu"] + combo_list)
+
+    if option == "Back to main menu":
         welcome()
-    else:
-        for combo_to_delete in option:
-            del combos[combo_to_delete]
-        easygui.msgbox("Combo(s) successfully deleted", "Combo Deleter", image=logo_image)
+
+    # Delete the selected combo from the dictionary
+    combo_to_delete = option[0]
+    del combos[combo_to_delete]
+    easygui.msgbox(f"The combo {combo_to_delete} has been deleted.", "Combo Deleter", image=logo_image)
 
 
 delete_combo()
