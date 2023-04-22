@@ -47,8 +47,6 @@ def welcome():
         welcome()
 
 
-
-
 def combo_print():
     for combo_id, combo_info in combos.items():
         print(f"\nCombo ID: {combo_id}")
@@ -110,4 +108,34 @@ def delete_combo():
         easygui.msgbox("Combo(s) successfully deleted", "Combo Deleter", image=logo_image)
 
 
-welcome()
+def change_combo():
+    combo_list = []
+    for i in combos:
+        combo_list.append(i)
+    combo_to_edit = easygui.choicebox("What combo do you want to edit?", "Combo Editor", combo_list)
+    if combo_to_edit is None:
+        return
+    options = ["Burger", "Side", "Drink", "Back to main menu"]
+    choice = easygui.choicebox(f"What do you want to edit for {combo_to_edit}?", "Combo Editor", options)
+    if choice == "Back to main menu":
+        return
+    elif choice == "Burger":
+        new_burger = easygui.enterbox("Enter new burger name:", "Combo Editor")
+        new_price = float(easygui.enterbox(f"Enter price for {new_burger}:", "Combo Editor"))
+        combos[combo_to_edit][new_burger] = new_price
+        del combos[combo_to_edit]["Beef burger"]
+    elif choice == "Side":
+        new_side = easygui.enterbox("Enter new side name:", "Combo Editor")
+        new_price = float(easygui.enterbox(f"Enter price for {new_side}:", "Combo Editor"))
+        combos[combo_to_edit][new_side] = new_price
+        del combos[combo_to_edit]["Fries"]
+    elif choice == "Drink":
+        new_drink = easygui.enterbox("Enter new drink name:", "Combo Editor")
+        new_price = float(easygui.enterbox(f"Enter price for {new_drink}:", "Combo Editor"))
+        combos[combo_to_edit][new_drink] = new_price
+        del combos[combo_to_edit]["Fizzy drink"]
+    easygui.msgbox(f"{combo_to_edit} has been updated!", "Combo Editor")
+    welcome()
+
+
+change_combo()
